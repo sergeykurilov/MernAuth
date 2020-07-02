@@ -10,7 +10,7 @@ const Signup = () => {
     const [values, setValues] = useState({
         name: 'Sergey',
         email: 'kurilovsergey15@gmail.com',
-        password: '1111',
+        password: 'q92e01kl',
         buttonText: 'Submit'
     })
 
@@ -36,7 +36,7 @@ const Signup = () => {
             .catch(error => {
                 // console.log('SIGNUP ERROR', error.response.data);
                 setValues({ ...values, buttonText: 'Submit' });
-                toast.error(error.response.data.error);
+                // toast.error(error.response.data.error);
             });
     };
   
