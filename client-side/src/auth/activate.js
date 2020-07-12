@@ -4,7 +4,7 @@ import Layout from '../core/Layout';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-
+import jwt from "jsonwebtoken";
 
 const Activate = ({match}) => {
     const [values, setValues] = useState({
@@ -15,34 +15,36 @@ const Activate = ({match}) => {
 
     useEffect(() => {
       let token = match.params.token;
-    }, [  ])
-
+      let {name} = jwt.decode(token)
+      if(token){
+        setValues({...values, name, token});
+      }
+    }, [])
+ 
     const { name, token, show }= values; 
 
 
     const clickSubmit = event => {
         event.preventDefault();
-        setValues({ ...values, buttonText: 'Submitting' });
         axios({
             method: 'POST',
-            url: `${process.env.REACT_APP_API}/signup`,
+            url: `${process.env.REACT_APP_API}/account-activation`,
             data: { token }
         })
             .then(response => {
-                // console.log('SIGNUP SUCCESS', response);
-                setValues({ ...values, buttonText: 'Submitted' });
+                console.log('ACCOUNT ACTIVATION', response);
+                setValues({ ...values, show: false });
                 toast.success(response.data.message);
             })
             .catch(error => {
-                // console.log('SIGNUP ERROR', error.response.data);
-                setValues({ ...values, buttonText: 'Submit' });
-                // toast.error(error.response.data.error);
+                console.log('ACCOUNT ACTIVATION ERROR', error.response.data.error);
+                toast.error(error.response.data.error);
             });
     };
   
   
     const activationLink = () => (
-        <div>
+        <div className="text-center">
         <h1 className="p-5">Hey {name}, Ready to activate your account.</h1>
         <button className="btn btn-outline-primary" onClick={clickSubmit}>Activate Account</button>
         </div>

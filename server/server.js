@@ -18,9 +18,11 @@ mongoose.connect(process.env.DATABASE, {
 .catch(err => console.log('DB error'))
 // import routes
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 // app middlewares
 app.use(morgan('dev'));
+app.use(cors()) 
 app.use(bodyPasrer.json());
 // app.apply(cors()); //allows all origins 
  if(process.env.NODE_ENV = 'development'){
@@ -29,7 +31,7 @@ app.use(bodyPasrer.json());
 
 // middleware
 app.use('/api',authRoutes);
-
+app.use('/api',userRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

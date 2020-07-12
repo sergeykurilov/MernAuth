@@ -3,7 +3,7 @@ import Layout from './core/Layout'
 const App = () => {
   return(
     <Layout>
-      <h1>Helldsdadsaadaso React</h1>
+      <h1>Hello React</h1>
     </Layout>
   )
 }

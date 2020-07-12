@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Layout from '../core/Layout';
 import axios from 'axios';
+import { isAuth } from "./helpers";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -44,15 +45,15 @@ const Signup = () => {
     const signupForm = () => (
         <form>
             <div className="form-group">
-                <lable className="text-muted">Name</lable>
+                <label className="text-muted">Name</label>
                 <input onChange={handleChange('name')} value={name} type="text" className="form-control"/>
             </div>
             <div className="form-group">
-                <lable className="text-muted">Email</lable>
+                <label className="text-muted">Email</label>
                 <input onChange={handleChange('email')} value={email} type="email" className="form-control"/>
             </div>
             <div className="form-group">
-                <lable className="text-muted">Password</lable>
+                <label className="text-muted">Password</label>
                 <input onChange={handleChange('password')} value={password} type="password" className="form-control"/>
             </div>
             <div>
@@ -65,6 +66,7 @@ const Signup = () => {
       
     <Layout>
         <ToastContainer />
+        {isAuth() ? <Redirect to="/" /> : null}
       <div className="col-d-6 offset-md-3">
       <h1 className="p-5">Signup</h1>
         {signupForm()}
